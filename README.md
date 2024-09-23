@@ -1,5 +1,5 @@
 # cs452-examples
-CS 628 Backend Web Development
+CS452 Backend Web Development
 
 Students can find the examples that will be used for their practices in lecture or HOS (Hands-on Skills).
 If you find any mistakes, please contact chungsam@cityu.edu.
