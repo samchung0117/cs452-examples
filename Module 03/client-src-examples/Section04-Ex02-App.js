@@ -20,7 +20,7 @@ function TodoList() {
                 alt="Gregorio Y. Zara"
             />
             <ul>
-                <li>Improve teh video phone</li>
+                <li>Improve the video phone</li>
                 <li>Prepare aeronautics lectures</li>
                 <li>Work on the alchol-fuelled engine</li>
             </ul>
