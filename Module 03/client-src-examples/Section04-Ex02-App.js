@@ -16,7 +16,7 @@ function TodoList() {
             <h1>{person.name}'s Todos</h1>
             <img
                 className="avatar"
-                src="https://i.imgur.com/7vQD0fPs.jpg"
+                src="https://i.imgur.com/yXOvdOSs.jpg"
                 alt="Gregorio Y. Zara"
             />
             <ul>
