@@ -1,5 +1,5 @@
-// Section02-Ex03-Gallary.js
-// Default export - Gallary
+// Section02-Ex03-Gallery.js
+// Default export - Gallery
 // Named export - Profile
 export function Profile() {
     return (

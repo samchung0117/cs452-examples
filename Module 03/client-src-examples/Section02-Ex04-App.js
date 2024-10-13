@@ -1,7 +1,7 @@
 // Section02-Ex04-App.js
 // Default export - Gallary
 // Named export - Profile
-import Gallary from'./Gallary.js';
+import Gallery from'./Gallery.js';
 import {Profile} from'./Gallary.js';
 
 export default function App () {
