@@ -4,6 +4,6 @@ import Gallary from'./Gallary.js';
 
 export default function App () {
     return (
-        <Gallary />
+        <Gallery />
     );
 }
