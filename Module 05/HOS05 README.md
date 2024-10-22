@@ -10,6 +10,7 @@
   * [Managing State](https://react.dev/learn/managing-state)
     * [Section 2: Preserving and Resetting State](https://react.dev/learn/managing-state#preserving-and-resetting-state)
       * [useState](https://react.dev/reference/react/useState)
+      * Keeping list items in order with key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key)
     * [Section 3: Extracting State Logic into a Reducer](https://react.dev/learn/managing-state#extracting-state-logic-into-a-reducer) 
       * [useReducer](https://react.dev/reference/react/useReducer)
     * [Section 4: Passing Data Deeply with Context](https://react.dev/learn/managing-state#passing-data-deeply-with-context)
