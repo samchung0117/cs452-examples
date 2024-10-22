@@ -15,6 +15,7 @@
       * [useReducer](https://react.dev/reference/react/useReducer)
     * [Section 4: Passing Data Deeply with Context](https://react.dev/learn/managing-state#passing-data-deeply-with-context)
       * [useContext](https://react.dev/reference/react/useContext)
+      * [createContext](https://react.dev/reference/react/createContext)
   * [Escape Hatches](https://react.dev/learn/escape-hatches)
     * [Section 5: Referencing Values with Refs](https://react.dev/learn/escape-hatches#referencing-values-with-refs)
       * [useRef](https://react.dev/reference/react/useRef)
