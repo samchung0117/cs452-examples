@@ -21,6 +21,7 @@
       * [useRef](https://react.dev/reference/react/useRef)
     * [Section 6: Manipulating the DOM with Refs](https://react.dev/learn/escape-hatches#manipulating-the-dom-with-refs)
       * [useRef](https://react.dev/reference/react/useRef)
+      * [Refs and the DOM](https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom)
     * [Section 7: Synchronizing with Effects](https://react.dev/learn/escape-hatches#synchronizing-with-effects)
       * [useEffect](https://react.dev/reference/react/useEffect)
     * [Section 8: Reusing Logic with Custom Hooks](https://react.dev/learn/escape-hatches#reusing-logic-with-custom-hooks)
