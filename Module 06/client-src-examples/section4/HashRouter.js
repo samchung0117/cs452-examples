@@ -6,7 +6,6 @@ import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import Details from './Details';
-import './App.css';
 
 class App extends Component {
   render() {
