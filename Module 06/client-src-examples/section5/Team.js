@@ -1,4 +1,6 @@
 // Section 5 - Team.js
+// https://reactrouter.com/en/main/components/outlet
+
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
