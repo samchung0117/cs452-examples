@@ -1,5 +1,4 @@
 # cs452-examples
-CS 452
 
 Students can find the examples that will be used for their practices in lecture or HOS (Hands-on Skills).
 If you find any mistakes, please contact chungsam@cityu.edu.
