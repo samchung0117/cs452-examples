@@ -4,34 +4,44 @@ import cors from "cors";
 import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
 
-import passport from "passport";
 import session from "express-session";
-import passportFacebook from "passport-facebook"
-const FacebookStrategy = passportFacebook.Strategy;
+import passport from "passport";
+import passportGitHub from "passport-github"
+const GitHubStrategy = passportGitHub.Strategy;
 
-// Replace with your Facebook App credentials
-// When you make a Facebook App, that app will have an App ID and an App Secret. 
-// With the App ID, you can send several requests to Facebook for data. 
-// The Facebook App Secret will be used to decode the encrypted messages from Facebook, so that sensitive information remains protected.
-const FACEBOOK_APP_ID = 'yourID';
-const FACEBOOK_APP_SECRET = 'yourSecret';
+const gitHubClientId = process.env.GITHUB_CLIENT_ID;
+const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+const users = [];
+const User = {
+  findOrCreate: ({ githubId }) => {
+    let user = users.find(user => user.githubId === githubId);
+    if (!user) {
+      user = { id: users.length + 1, githubId };
+      users.push(user);
+    }
+    return user;
+  }
+};
 
 passport.use(
-  new FacebookStrategy(
+  new GitHubStrategy(
     {
-      clientID: FACEBOOK_APP_ID,
-      clientSecret: FACEBOOK_APP_SECRET,
-      // Your callback URL
-      callbackURL: 'YourBackendURL/facebook/callback', 
-      // Fields you want to access from the user's Facebook profile
-      profileFields: ['id', 'displayName', 'email'], 
+      clientID: gitHubClientId,
+      clientSecret: githubClientSecret,
+      callbackURL: "https://horrible-spooky-goblin-4q45pgjjw96cpvg-5050.app.github.dev/auth/github/callback"
     },
-    async (accessToken, refreshToken, profile, done) => {
-      //logic for using accessToken and RefreshToken
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        const user = await User.findOrCreate({ githubId: profile.id });
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
+      }
     }
   )
 );
+
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -45,6 +55,7 @@ const PORT = process.env.PORT || 5050;
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 
 app.use("/record", records);
@@ -53,14 +64,15 @@ app.use(session({ secret: 'secret-key', resave: false, saveUninitialized: false 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Add Passport Facebook routes
-app.get('/facebook', passport.authenticate('facebook'));
-app.get('/facebook/callback', passport.authenticate('facebook', {
-  // Redirect to the main page upon successful login.
-  successRedirect: 'yourFrontEndURL/home', 
-  // Redirect to login page on authentication failure.
-  failureRedirect: 'yourFrontEndURL', 
-}));
+app.get('/auth/github',
+  passport.authenticate('github'));
+
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('https://horrible-spooky-goblin-4q45pgjjw96cpvg-3000.app.github.dev/home');
+  });
 
 // start the Express server
 app.listen(PORT, () => {

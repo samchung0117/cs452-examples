@@ -1,15 +1,44 @@
-// HOS10A create.js
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
+// HOS10A edit.js
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 import Navbar from "./navbar";
  
-export default function Create() {
+export default function Edit() {
+ const backendUrl = process.env.REACT_APP_BACKEND_URL; 
  const [form, setForm] = useState({
    name: "",
    position: "",
    level: "",
+   records: [],
  });
+ const params = useParams();
  const navigate = useNavigate();
+ 
+ useEffect(() => {
+   async function fetchData() {
+     const id = params.id.toString();
+     const response = await fetch(`https://horrible-spooky-goblin-4q45pgjjw96cpvg-5050.app.github.dev/record/${params.id.toString()}`);
+ 
+     if (!response.ok) {
+       const message = `An error has occurred: ${response.statusText}`;
+       window.alert(message);
+       return;
+     }
+ 
+     const record = await response.json();
+     if (!record) {
+       window.alert(`Record with id ${id} not found`);
+       navigate("/home");
+       return;
+     }
+ 
+     setForm(record);
+   }
+ 
+   fetchData();
+ 
+   return;
+ }, [params.id, navigate]);
  
  // These methods will update the state properties.
  function updateForm(value) {
@@ -18,37 +47,34 @@ export default function Create() {
    });
  }
  
- // This function will handle the submission.
  async function onSubmit(e) {
    e.preventDefault();
+   const editedPerson = {
+     name: form.name,
+     position: form.position,
+     level: form.level,
+   };
  
-   // When a post request is sent to the create url, we'll add a new record to the database.
-   const newPerson = { ...form };
- 
-   await fetch("YourBackendURL/record", {
-     method: "POST",
+   // This will send a post request to update the data in the database.
+   await fetch(`{backendUrl}/record/${params.id}`, {
+     method: "PATCH",
+     body: JSON.stringify(editedPerson),
      headers: {
-       "Content-Type": "application/json",
+       'Content-Type': 'application/json'
      },
-     body: JSON.stringify(newPerson),
-   })
-   .catch(error => {
-     window.alert(error);
-     return;
    });
  
-   setForm({ name: "", position: "", level: "" });
-   navigate("/");
+   navigate("/home");
  }
  
- // This following section will display the form that takes the input from the user.
+ // This following section will display the form that takes input from the user to update the data.
  return (
    <div>
     <Navbar />
-     <h3>Create New Record</h3>
+     <h3>Update Record</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
-         <label htmlFor="name">Name</label>
+         <label htmlFor="name">Name: </label>
          <input
            type="text"
            className="form-control"
@@ -58,7 +84,7 @@ export default function Create() {
          />
        </div>
        <div className="form-group">
-         <label htmlFor="position">Position</label>
+         <label htmlFor="position">Position: </label>
          <input
            type="text"
            className="form-control"
@@ -103,12 +129,14 @@ export default function Create() {
              onChange={(e) => updateForm({ level: e.target.value })}
            />
            <label htmlFor="positionSenior" className="form-check-label">Senior</label>
-         </div>
        </div>
+       </div>
+       <br />
+ 
        <div className="form-group">
          <input
            type="submit"
-           value="Create person"
+           value="Update Record"
            className="btn btn-primary"
          />
        </div>
